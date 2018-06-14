@@ -22,18 +22,10 @@ function [volume,largura, area, poligono, rand_points] = CalcularVolumeMC(x, y, 
 %}
 
     %Variáveis de teste
-    area = zeros(qtd_fatias);
-    largura = zeros(qtd_fatias);
+    area = zeros(qtd_fatias,1);
+    largura = zeros(qtd_fatias,1);
     poligono = zeros(size(x,1),2,qtd_fatias);
     rand_points = zeros(2,size(x_pontos_aleatorios,2),qtd_fatias);
-
-    % Centrar o sistema de coordenadas no ponto médio do objeto
-    x_medio = (max(x) + min(x))/2;
-    y_medio = (max(y) + min(y))/2;
-    z_medio = (max(z) + min(z))/2;
-    x = x - x_medio;
-    y = y - y_medio;
-    z = z - z_medio;
 
     %inicialização de algumas variáveis
     volume = 0;
@@ -59,9 +51,9 @@ function [volume,largura, area, poligono, rand_points] = CalcularVolumeMC(x, y, 
     %Como a função de coordenadas gera pontos num intervalo [0,maior_coord] queremos
     %deslocar as coordenadas para variarem no intervalo [-maior_coord/2 ,maior_coord/2] de forma a
     %obter um objeto inscrito num cubo.
-    x_pontos_aleatorios = x_pontos_aleatorios-(maior_coord/2);
-    y_pontos_aleatorios = y_pontos_aleatorios-(maior_coord/2);
-    z_pontos_aleatorios = z_pontos_aleatorios-(maior_coord/2);
+    %x_pontos_aleatorios = x_pontos_aleatorios-(maior_coord/2);
+    %y_pontos_aleatorios = y_pontos_aleatorios-(maior_coord/2);
+    %z_pontos_aleatorios = z_pontos_aleatorios-(maior_coord/2);
 
     %Calculo do volume propriamente dito:
 
@@ -85,7 +77,7 @@ function [volume,largura, area, poligono, rand_points] = CalcularVolumeMC(x, y, 
         %calcular o volume da fatia usando Monte Carlo e somar ao volume total:
 
         if size(x(I), 2)>0 %há pontos na fatia?
-            poligono(1:numel(x(I)),1:2,i+1) = [x(I),y(I)];
+            poligono(1:numel(x(I)),1:2,i+1) = [x(I)',y(I)'];
             rand_points(1:2,1:numel(x_pontos_aleatorios(I_aleatorio)),i+1) = [x_pontos_aleatorios(I_aleatorio); y_pontos_aleatorios(I_aleatorio)];
             area(i+1) = CalcularAreaMC (x(I), y(I),...
                 x_pontos_aleatorios(I_aleatorio), y_pontos_aleatorios(I_aleatorio));
@@ -94,5 +86,5 @@ function [volume,largura, area, poligono, rand_points] = CalcularVolumeMC(x, y, 
             last_z = z_final;
         end
     end
-    volume
+    volume;
 end
