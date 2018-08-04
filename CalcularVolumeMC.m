@@ -41,19 +41,6 @@ function [volume,largura, area, poligono, rand_points] = CalcularVolumeMC(x, y, 
     intervalos = [intervalo_x, intervalo_y, intervalo_z];
     intervalos_ordem_ascendente = sort(intervalos);
     maior_coord = intervalos_ordem_ascendente(3);
-    
-    %Gerar pontos aleatorios. 'maior_coord' corresponde ao intervalo sobre qual as
-    %coordenadas vão variar. Ou seja x, y e z aleatórios pertencerão a
-    %[0,maior_coord]
-    %[x_pontos_aleatorios, y_pontos_aleatorios, z_pontos_aleatorios] = ...
-        %GerarPontosAleatorios(maior_coord, qtd_pontos_aleatorios);
-
-    %Como a função de coordenadas gera pontos num intervalo [0,maior_coord] queremos
-    %deslocar as coordenadas para variarem no intervalo [-maior_coord/2 ,maior_coord/2] de forma a
-    %obter um objeto inscrito num cubo.
-    %x_pontos_aleatorios = x_pontos_aleatorios-(maior_coord/2);
-    %y_pontos_aleatorios = y_pontos_aleatorios-(maior_coord/2);
-    %z_pontos_aleatorios = z_pontos_aleatorios-(maior_coord/2);
 
     %Calculo do volume propriamente dito:
 
@@ -76,9 +63,9 @@ function [volume,largura, area, poligono, rand_points] = CalcularVolumeMC(x, y, 
 
         %calcular o volume da fatia usando Monte Carlo e somar ao volume total:
 
-        if size(x(I), 2)>0 %há pontos na fatia?
-            poligono(1:numel(x(I)),1:2,i+1) = [x(I)',y(I)'];
-            rand_points(1:2,1:numel(x_pontos_aleatorios(I_aleatorio)),i+1) = [x_pontos_aleatorios(I_aleatorio); y_pontos_aleatorios(I_aleatorio)];
+        if size(x(I), 1)>0 %há pontos na fatia?
+            poligono(1:numel(x(I)),1:2,i+1) = [x(I),y(I)];
+            rand_points(1:numel(x_pontos_aleatorios(I_aleatorio)),1:2,i+1) = [x_pontos_aleatorios(I_aleatorio), y_pontos_aleatorios(I_aleatorio)];
             area(i+1) = CalcularAreaMC (x(I), y(I),...
                 x_pontos_aleatorios(I_aleatorio), y_pontos_aleatorios(I_aleatorio));
             largura(i+1) = (z_final - last_z);

@@ -44,7 +44,7 @@ function [area] = CalcularAreaMC(x_figura,y_figura,...
     if size(x_pontos_aleatorios,2) == 0
         area = 0;
     else
-        area = area_quadrado * (qtd_pontos_dentro/size(x_pontos_aleatorios,2));
+        area = area_quadrado * (qtd_pontos_dentro/size(x_pontos_aleatorios,1));
     end
 end
 

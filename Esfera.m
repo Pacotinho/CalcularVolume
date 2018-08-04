@@ -1,8 +1,9 @@
-function [x,y,z] = Esfera(raio,complexidade)
+function [x,y,z] = Esfera(raio)
     %Calcular volume de uma esfera
     tamanho_esfera = 1;
     volume = 0;
     qtd_secoes = 20;
+    complexidade = 100;
 
     %criar matriz esfera
     for i = 0:complexidade
