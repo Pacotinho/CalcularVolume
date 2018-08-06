@@ -15,6 +15,6 @@ z = obj(:,3);
 maximo = max(max([x,y,z]));
 minimo = min(min([x,y,z]));
 [x_rand,y_rand,z_rand] = GerarPontosAleatorios(maximo,minimo,qtd_rand);
-[volume,largura, area, poligono, rand_points] = CalcularVolumeMC(x',y',z',x_rand,y_rand,z_rand,qtd_rand,qtd_fatias);
+[volume,largura, area, poligono, rand_points] = CalcularVolumeMC(x,y,z,x_rand,y_rand,z_rand,qtd_rand,qtd_fatias);
 end
 
